@@ -305,9 +305,7 @@ export const llmConfigBaseSchema = z.object({
     ),
   chatTemplateSrc: modelSrcInputSchema
     .optional()
-    .describe(
-      'Jinja chat template source, used instead of the template embedded in the GGUF.'
-    ),
+    .describe('Jinja chat template source, used instead of the template embedded in the GGUF.'),
   image_tile_mode: z
     .enum(['disabled', 'batched', 'sequential'])
     .optional()
