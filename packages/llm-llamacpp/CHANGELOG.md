@@ -4,17 +4,29 @@
 
 ### Added
 
+- `chat_template_file` in the load config reads a jinja chat template from
+  that path and uses it instead of the template embedded in the GGUF, for
+  models whose own template does not render tools. A path that cannot be read
+  fails the load with `InvalidArgument`.
+
+## [0.59.0] - 2026-10-11
+
+### Added
+
 - Chat messages accept past tool calls: `tool_calls` (`id`, `name`,
   `arguments` as an object or JSON object text) on an assistant turn, and
   `tool_call_id` / `name` on a tool turn. The chat template renders them in
   the model's own format instead of the caller writing them into `content`.
   `content` may be `null` or omitted on an assistant turn that carries
   `tool_calls`. A malformed tool turn, or a non-string `content`, fails with
-  `InvalidInputFormat`.
-- `chat_template_file` in the load config reads a jinja chat template from
-  that path and uses it instead of the template embedded in the GGUF, for
-  models whose own template does not render tools. A path that cannot be read
-  fails the load with `InvalidArgument`.
+  `InvalidInputFormat` ([#4876](https://github.com/tetherto/qvac/pull/4876)).
+
+### Fixed
+
+- A multimodal model that failed to load, for example out of GPU memory,
+  resolved `load()` instead of rejecting it, and the first request then
+  crashed the process. It now rejects with `UnableToLoadModel`, as a
+  text-only model does.
 
 ## [0.58.0] - 2026-10-09
 
