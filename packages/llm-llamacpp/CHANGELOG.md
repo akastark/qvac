@@ -11,6 +11,10 @@
   `content` may be `null` or omitted on an assistant turn that carries
   `tool_calls`. A malformed tool turn, or a non-string `content`, fails with
   `InvalidInputFormat`.
+- `chat_template_file` in the load config reads a jinja chat template from
+  that path and uses it instead of the template embedded in the GGUF, for
+  models whose own template does not render tools. A path that cannot be read
+  fails the load with `InvalidArgument`.
 
 ## [0.58.0] - 2026-10-09
 
